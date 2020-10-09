@@ -38,14 +38,19 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    let outputStr = ''
-    let Array = expr.split(' ')
-      for(let i =0; i < array.length; i++){
-        outputStr +=  MORSE_TABLE [array[i]]
-      }
-  return outputStr
+  let digitToLetter = {
+      '00': '',
+      '10': '.',
+      '11': '-'
+  }
+  let decodedMessage = expr.split('**********').map(
+      a => a.match(/.{10}/g).map(
+          b => b.match(/.{2}/g).map(
+              morseLetter => digitToLetter[morseLetter]).join('')).map(
+                  encodedLetter => MORSE_TABLE[encodedLetter]).join('')).join(' ');
+  return decodedMessage;
 }
 
-// module.exports = {
-//     decode
-// }
+module.exports = {
+  decode
+}
